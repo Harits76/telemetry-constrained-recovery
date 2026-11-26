@@ -1,0 +1,7 @@
+# Sources and release conditions
+
+The transportation files are historical Anaheim, Berlin-Friedrichshain, Eastern Massachusetts, and Barcelona benchmarks from the Transportation Networks for Research repository, commit `d1639b4ef218c17928ba573e806ddf8ba5e7ae6d`. Upstream specifies academic research use and attribution. Source README files are preserved. Eastern Massachusetts describes a highway subnetwork from April 2012; Barcelona's README leaves parts of its provenance unspecified. They provide graph structure and relative capacities, not measurements of the modeled logistics operation. Their historical dates do not make the recent research citations old.
+
+The communication data are Nikseresht, Leal Sobral, Goodall, and Campbell (2025), *Long-term LoRaWAN Communication Metadata from an Urban Deployment*, University of Virginia Dataverse V1, DOI https://doi.org/10.18130/V3/RFTICK, licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Derived reception masks and training/test blocks identify that transformation. The source authors do not endorse this simulation.
+
+The `cases/` files are constructed simulation inputs derived from these graph structures and communication summaries. They are not shipment, capacity-sensor, or request/reply measurements. Upstream research-use and attribution conditions continue to apply to derived graph inputs. The MIT code license does not relicense upstream data. Source README files are included alongside these terms. Generated ER64 and Grid64 structures have no third-party graph source.

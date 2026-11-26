@@ -1,0 +1,13 @@
+{
+  "recorded_utc": "2026-11-26T01:37:12.690239+00:00",
+  "source_sha256": {
+    "pi-recovery-certified-exact/core.py": "eb19d174fdae2687d715a050c9774f480e8716bdb6f8e6b2a588d47d7e829dc3",
+    "pi-recovery-generalization/generalize.py": "6a7d6cdd111aae28928c430699f610a0800b3a1230d356d65e8d1ca1f8f66051",
+    "pi-recovery-generalization/large.py": "5901b756a659aa2fdb967c9b189f09b4d5d08ef6900c8a0b8fa8f7546834b9b4",
+    "pi-recovery-focused-r3/model.py": "411b62f613a2c875671c0791cf854e66c05f3c52bd11e6e0b2967f4e83b2f7b2",
+    "pi-recovery-focused-r3/engine.py": "1d150f057009c4c260d3205ba6fd6e7c0d209a0e11f572919d85a16e9f65fdc1",
+    "pi-recovery-native-benchmark/benchmark.py": "8f5d0808393f07b9f714a26f797a02bfdf929073cccc8be5c022064d6efb25ea",
+    "pi-recovery-confirmation/confirmation.py": "a958b8acdaca2f2863cdf7fd4e0f9e39f506cee419959c59364d719b468b1f59"
+  },
+  "note": "Historical generator used only to export explicit JSON inputs. Public rerun uses JSON inputs, not private directory imports."
+}

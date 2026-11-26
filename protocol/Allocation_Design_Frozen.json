@@ -1,0 +1,72 @@
+{
+  "recorded_utc": "2026-11-26T01:36:54.558421+00:00",
+  "design": {
+    "id": "mentor-r3-fullscale-2026-11-26",
+    "resources": 20,
+    "families": [
+      "anaheim",
+      "berlin",
+      "massachusetts",
+      "barcelona",
+      "ER64",
+      "GRID64"
+    ],
+    "new_test_seeds": [
+      2026112600,
+      2026112601,
+      2026112602,
+      2026112603
+    ],
+    "original_seeds": [
+      6100,
+      6101,
+      6102,
+      6103
+    ],
+    "priors": [
+      "I05",
+      "HETERO",
+      "CORRELATED"
+    ],
+    "receptions": [
+      "INDEP80",
+      "COMMON20"
+    ],
+    "budgets": [
+      0.28,
+      0.42,
+      0.7
+    ],
+    "main_budgets": [
+      0.42,
+      0.7
+    ],
+    "rules": [
+      "CUT",
+      "RANDOM",
+      "MYOPIC_FLOW",
+      "LAZY_GREEDY",
+      "LOCAL_SWAP",
+      "MODULAR_DP",
+      "CUT_DP",
+      "FLOW_MSE",
+      "SUMMARY_VOI"
+    ],
+    "criteria": {
+      "FLOW_MSE": "Maximize expected reduction of posterior variance of full-state maximum flow F(X).",
+      "SUMMARY_VOI": "Maximize expected reduction of posterior variance of mean of20 monitored capacities. Finite-belief objective adaptation, not Gaussian/Kalman algorithm reproduction."
+    },
+    "information": "Same full prior, reliability, bounds, native reservation and H3 service eligibility supplied to all9 rules. New controls solved over all60460 batches to avoid heuristic-implementation confounding. Original7 selectors unchanged.",
+    "capacity_truth": "Every one of2^20 full capacity states per graph, integer FIFO push-relabel, primal capacity/conservation/mincut equality checked for every state. Full-state values only define estimation objectives; allocation J still uses conservative revealed-capacity maxflow.",
+    "chronology": "Old24 cases previously examined. Seeds2026112500..2503 already examined with7 rules and are not confirmation data for new controls. Newseeds2026112600..2603 fixed here before generating their cases or outcomes; no parameter tuning or exclusions. Constructed scenario follow-up, not independent deployments or public preregistration.",
+    "analysis": "Keep all ties and losses. Main comparison includes288 conditions percohort; budget.28 is predefined sensitivity. Report conditional descriptive gaps, not population acceptance scores.",
+    "licensing": "Upstream graph extracts retain original academic-research-use conditions and attribution; derived environmental metadata CC BY4.0. Own code separate MIT; ns3 derivative code GPL2. Private reviews and copyrighted reading PDFs excluded."
+  },
+  "source_sha256": {
+    "src/full_truth.cpp": "ecfb1a85a0aef401b1c9f6f9614b67316656bb31c489cbcb6bbb234572c88edc",
+    "src/information.py": "fc6f6d31e8381107e9fe42cb01c22143a1bcf9a10155fa27858ba611fbbd6d31",
+    "src/policies.py": "1b8bab7c4bc5ad89f7a5717aeb602f982a14a48c85878781f58bf24a5245415e",
+    "src/reference_engine.py": "55c38e2f39011735af6abce54b229a77c7488acb2b9a3ed094d802523c8bc14c",
+    "src/run_study.py": "8f4a345a51154f6be58beb59b598e800ed2cc60813f08c0c333656444d43f5c1"
+  }
+}
