@@ -5,11 +5,11 @@ Code, data, and reproducible experiments for **Telemetry-Constrained Recovery Al
 ## Main experiments
 
 - Nine selection rules at 20 resources: cut ranking, random, static gain, greedy gain, exchange, singleton knapsack, cut knapsack, Flow-MSE and Summary-VoI.
-- Original and newly sampled 24-scenario cohorts, with three priors, two reception laws and budgets 0.42/0.70 s; 0.28 s is a predefined sensitivity.
+- Earlier and newly sampled 24-scenario cohorts, with three priors, two reception laws and budgets 0.42/0.70 s; 0.28 s is a predefined sensitivity.
 - All 50,331,648 full capacity states checked with integer primal/cut certificates. The allocation reference uses 60,460 short batches per graph.
 - 124,416 ns-3 packet dispatches across deadlines, duty fractions, background loads and simulated radii, plus a service-adapted exact reference.
 
-The allocation design was recorded before generating the new test scenarios. Original scenarios were previously examined. The new cohort reuses the same graph families and communication corpus; it is not a set of measured deployments. Read the frozen designs in `protocol/`.
+The allocation design was recorded before generating the new test scenarios. The earlier scenarios were previously examined. The new cohort reuses the same graph families and communication corpus; it is not a set of measured deployments. Read the frozen designs in `protocol/`. The folder `cases/original` denotes the earlier 20-resource cohort and `cases/test` denotes the new 20-resource cohort; both use this repository’s model.
 
 ## Quick numerical replay
 
@@ -60,7 +60,7 @@ Nominal batches are held fixed for the packet transport test. `Service_Optima.cs
 .venv/bin/python src/plot_packets.py
 ```
 
-Figure sources use 18-point bold labels and vector PDF output. `paper/` contains the minimal HiTeX source: `main.tex`, `reference.bib`, and `figures/`. The four historical supporting analyses have explicit inputs and standalone replay scripts; private reviews and reading-copy PDFs are excluded.
+Figure sources use 18-point bold labels and vector PDF output. The scripts write regenerated figures to `paper/figures/`. The manuscript and minimal HiTeX package are delivered separately; this public repository releases the experiment code and data. The four historical supporting analyses have explicit inputs and standalone replay scripts; private reviews and reading-copy PDFs are excluded.
 
 Flow-MSE targets full-state maximum flow. Summary-VoI targets mean monitored capacity, adapting the statistic-specific MMSE objective in Chiariotti et al., IEEE Networking Letters (2022), DOI [10.1109/LNET.2022.3172591](https://doi.org/10.1109/LNET.2022.3172591). This finite binary-belief control does not reproduce their Gaussian/Kalman algorithm.
 

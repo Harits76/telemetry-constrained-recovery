@@ -7,3 +7,5 @@ work/
 ns-3/
 *.log
 build/
+paper/
+.extension-venv/

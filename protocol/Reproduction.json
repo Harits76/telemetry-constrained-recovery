@@ -1,0 +1,36 @@
+{
+  "source_commit": "9b881d4370abbb68e6344de23a07eb406562ecce",
+  "source": "Fresh HTTPS clone of public GitHub repository",
+  "environment": "Separate Python3.12 venv, installed pinned NumPy/SciPy from PyPI",
+  "flow_mode": "Restored published full-state tables after all48SHA256 checks; recomputed every objective/selector/optimum. This is numerical replay, not a full50million-flow rebuild.",
+  "same_host_same_team": true,
+  "external_person_execution": false,
+  "checks": {
+    "all_Optima.csv": {
+      "rows": 864,
+      "byte_identical": true
+    },
+    "all_Policies.csv": {
+      "rows": 7776,
+      "byte_identical": true
+    },
+    "all_Information_Criteria.csv": {
+      "rows": 1728,
+      "byte_identical": true
+    }
+  },
+  "full_integer_rebuild": {
+    "case": "ER64_6100",
+    "states": 1048576,
+    "primal_and_cut_checked": true,
+    "byte_identical": true,
+    "sha256": "7281d57ef84267d06b5b2118036410cc3f329b2a136b80c237a676f2a6a36f61"
+  },
+  "packet_rebuild_and_rerun": {
+    "dispatches": 124416,
+    "source": "Public clone ns3/telemetry-packets.cc, separately recompiled with GCC14.2",
+    "libraries": "Reused pinned ns-3/LoRa shared libraries from the verified build; not a fresh dependency build",
+    "packet_outputs_byte_identical": true,
+    "sha256": "ab9076bad4b04d13059e36eef08c0249e8409857672897c759e49c9868b0c168"
+  }
+}
