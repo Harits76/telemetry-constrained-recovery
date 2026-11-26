@@ -1,0 +1,24 @@
+{
+  "recorded_utc": "2026-11-26T05:49:13.266290+00:00",
+  "baseline_version": "v1.0.0",
+  "role": "Supporting collector-side PureChain audit based on original notebook format; no change to title, research question, allocation objectives or radio model",
+  "implementation": "Local canonical-JSON SHA-256 payload/block digest chain, deterministic logical replay timestamps, external checkpoint comparison, expected experiment IDs and source-CSV validation",
+  "original_notebook_sha256": "bce334b8f1deda35207e0deb07aee79659d27a408eb44e1acd5b64d266070282",
+  "controls": "Same fixed inputs, random seeds, policies and parameters. Replay all allocation calculations with audit off and on; compare exact CSV bytes. Rerun unchanged native ns-3 packet generator, then run off/on collector analysis and compare all outputs.",
+  "expected_policy_records": 7776,
+  "expected_packet_records": 124416,
+  "genesis": "Excluded from audit-coverage numerator and denominator. Empty declared experiments give undefined coverage, not1.",
+  "threat_model": "Trusted input and checkpoint required for origin and full-rewrite checks; no signatures, distributed consensus, sensor authenticity, false-data resistance or field security claims.",
+  "timing": "Measure host serialization/hash/compression/write cost separately. Audit occurs after controller outcome calculation, outside modeled radio reservation/deadline; no free end-to-end or real-time claim.",
+  "retention": "Retain every declared run. No retuning or selection of favorable policy/packet outcomes.",
+  "source_sha256": {
+    "purechain_audit.py": "5731afa0e883e3b45b69e6ec6d49e7180ca00affae9a3606e26618dcea16b898",
+    "audit_adapter.py": "d54c38cec87aba240a43a499e68d67b49915d16b07442473a6febd0f4c941bbc",
+    "verify_audit.py": "e4556c4e957ff2b216894b8e0c01e37adc34009f10f50a47a3f04d139d6f9a07",
+    "run_study.py": "600c477706369d8ebe08204cfb31c367e6c15c6c77abb383917ed7468ac2bfea",
+    "packet_experiment.py": "0ce6c18e3a1f2fd1b2217d5aa01eacfd867a645b3fe5740d0d37d56d1fb4aae8",
+    "policies.py": "1b8bab7c4bc5ad89f7a5717aeb602f982a14a48c85878781f58bf24a5245415e",
+    "information.py": "fc6f6d31e8381107e9fe42cb01c22143a1bcf9a10155fa27858ba611fbbd6d31",
+    "reference_engine.py": "55c38e2f39011735af6abce54b229a77c7488acb2b9a3ed094d802523c8bc14c"
+  }
+}

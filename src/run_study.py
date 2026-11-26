@@ -3,6 +3,9 @@ from pathlib import Path
 from concurrent.futures import ProcessPoolExecutor
 import argparse, csv, hashlib, json, subprocess, time
 import numpy as np
+from contextlib import nullcontext
+from purechain_audit import PureChainWriter, policy_id
+from audit_adapter import policy_expectations, context, policy_payload
 from information import criterion_tables, observation_groups
 from reference_engine import masks, transform, arrivals, enclose, down, up
 from policies import cut_membership, select_all
@@ -64,14 +67,23 @@ def run(path):
     return opt_rows,policy_rows,criterion_rows,record
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser();p.add_argument('--workers',type=int,default=2);p.add_argument('--cohort',choices=['original','test','all'],default='all');a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--workers',type=int,default=2);p.add_argument('--cohort',choices=['original','test','all'],default='all');p.add_argument('--audit',choices=['purechain','off'],default='purechain');a=p.parse_args()
     (ROOT/'results').mkdir(exist_ok=True);(ROOT/'work').mkdir(exist_ok=True)
     subprocess.run(['g++','-std=c++17','-O3',str(ROOT/'src/full_truth.cpp'),'-o',str(ROOT/'work/full_truth')],check=True)
     paths=sorted((ROOT/'cases').glob(('*' if a.cohort=='all' else a.cohort)+'/*.json'))
     start=time.perf_counter();opt=[];pol=[];crit=[];audit=[]
+    audit_path=ROOT/'results/purechain'/f'{a.cohort}_Allocation.jsonl.gz'
+    expected_ids=policy_expectations(paths)
+    audit_context=context('allocation',paths+[ROOT/'data/full_truth.npz'])
     with ProcessPoolExecutor(max_workers=a.workers) as pool:
-        for o,s,c,r in pool.map(run,paths):
-            opt+=o;pol+=s;crit+=c;audit.append(r)
-            # Checkpoints survive an interrupted long run.
-            for name,rows in [('Optima',opt),('Policies',pol),('Information_Criteria',crit),('Truth_Audit',audit)]:write(ROOT/'results'/f'{a.cohort}_{name}.csv',rows)
+        completed=pool.map(run,paths)  # Start workers before opening the parent-only ledger.
+        recorder=PureChainWriter(audit_path,expected_ids,audit_context) if a.audit=='purechain' else nullcontext(None)
+        with recorder as ledger:
+            for o,s,c,r in completed:
+                if ledger is not None:
+                    references={(x['Prior'],x['Reception'],x['Budget']):x for x in o}
+                    for row in s:ledger.append(policy_id(row),policy_payload(row,references[row['Prior'],row['Reception'],row['Budget']]))
+                opt+=o;pol+=s;crit+=c;audit.append(r)
+                # Checkpoints survive an interrupted long run.
+                for name,rows in [('Optima',opt),('Policies',pol),('Information_Criteria',crit),('Truth_Audit',audit)]:write(ROOT/'results'/f'{a.cohort}_{name}.csv',rows)
     (ROOT/'results'/f'{a.cohort}_Run.json').write_text(json.dumps(dict(Cases=len(paths),States=len(paths)*(1<<20),PolicyRows=len(pol),WallSeconds=time.perf_counter()-start),indent=2)+'\n')

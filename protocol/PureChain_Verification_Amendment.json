@@ -1,0 +1,11 @@
+{
+  "recorded_utc": "2026-11-26T05:50:59.928656+00:00",
+  "change": "Add explicit trusted-checkpoint argument and original-notebook-compatible finite-JSON reference fixture before production audit runs; no policy/parameter changes.",
+  "source_sha256": {
+    "purechain_audit.py": "5731afa0e883e3b45b69e6ec6d49e7180ca00affae9a3606e26618dcea16b898",
+    "audit_adapter.py": "d54c38cec87aba240a43a499e68d67b49915d16b07442473a6febd0f4c941bbc",
+    "verify_audit.py": "ac253ee07408181fef27adfa35e0a039d9d85e4874651ced01aafdd63db06abf",
+    "run_study.py": "600c477706369d8ebe08204cfb31c367e6c15c6c77abb383917ed7468ac2bfea",
+    "packet_experiment.py": "0ce6c18e3a1f2fd1b2217d5aa01eacfd867a645b3fe5740d0d37d56d1fb4aae8"
+  }
+}

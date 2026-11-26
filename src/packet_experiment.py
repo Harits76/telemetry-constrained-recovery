@@ -2,6 +2,9 @@
 from pathlib import Path
 import argparse,csv,hashlib,json,itertools,subprocess,time
 import numpy as np
+from contextlib import nullcontext
+from purechain_audit import PureChainWriter, packet_id
+from audit_adapter import context, packet_payload
 from run_study import write
 ROOT=Path(__file__).resolve().parents[1]
 FAMILIES=['anaheim','berlin','massachusetts','barcelona','ER64','GRID64']
@@ -27,7 +30,7 @@ def prepare():
     write(dest/'Trial_Inputs.csv',rows);(dest/'trials.txt').write_text('\n'.join(lines)+'\n')
     print(f'Prepared {len(rows)} paired packet dispatches',flush=True)
 
-def analyze():
+def analyze(audit='purechain'):
     dest=ROOT/'work/packets';meta=list(csv.DictReader((dest/'Trial_Inputs.csv').open()))
     radio=list(csv.DictReader((dest/'Packet_Outputs.csv').open()));assert len(meta)==len(radio)
     tables={}
@@ -35,12 +38,17 @@ def analyze():
         t=np.load(ROOT/f'results/{family}_6100_terminal.npz')
         tables[family]=dict(zip(map(int,t['masks']),map(int,t['values'])))
     combined=[]
-    for row,rx in zip(meta,radio):
-        assert row['ID']==rx['ID'];mask=int(row['Mask']);got=int(rx['ReceivedMask']);truth=int(row['TruthMask'])
-        assert got&~mask==0
-        F=tables[row['Family']];actual=F[got&truth];perfect=F[mask&truth]
-        assert actual<=perfect
-        combined.append(dict(row,**{k:v for k,v in rx.items() if k!='ID'},ReceivedReports=got.bit_count(),Complete=int(got==mask),CertifiedFlow=actual,PerfectTimelyFlow=perfect,CommunicationLoss=perfect-actual))
+    inputs=[dest/'Trial_Inputs.csv',dest/'Packet_Outputs.csv']+[ROOT/f'results/{family}_6100_terminal.npz' for family in FAMILIES]
+    recorder=PureChainWriter(ROOT/'results/purechain/Packet_Dispatches.jsonl.gz',[packet_id(r) for r in meta],context('packet',inputs)) if audit=='purechain' else nullcontext(None)
+    with recorder as ledger:
+        for row,rx in zip(meta,radio):
+            assert row['ID']==rx['ID'];mask=int(row['Mask']);got=int(rx['ReceivedMask']);truth=int(row['TruthMask'])
+            assert got&~mask==0
+            F=tables[row['Family']];actual=F[got&truth];perfect=F[mask&truth]
+            assert actual<=perfect
+            record=dict(row,**{k:v for k,v in rx.items() if k!='ID'},ReceivedReports=got.bit_count(),Complete=int(got==mask),CertifiedFlow=actual,PerfectTimelyFlow=perfect,CommunicationLoss=perfect-actual)
+            if ledger is not None:ledger.append(packet_id(record),packet_payload(record))
+            combined.append(record)
     write(ROOT/'results/Packet_Dispatches.csv',combined)
     groups={}
     for r in combined:
@@ -57,5 +65,5 @@ def analyze():
     print(f'Analyzed {len(combined)} dispatches, {len(summary)} settings',flush=True)
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser();p.add_argument('action',choices=['prepare','analyze']);a=p.parse_args()
-    prepare() if a.action=='prepare' else analyze()
+    p=argparse.ArgumentParser();p.add_argument('action',choices=['prepare','analyze']);p.add_argument('--audit',choices=['purechain','off'],default='purechain');a=p.parse_args()
+    prepare() if a.action=='prepare' else analyze(a.audit)

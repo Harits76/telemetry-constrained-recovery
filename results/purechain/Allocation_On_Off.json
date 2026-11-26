@@ -1,0 +1,14 @@
+{
+  "all_Optima.csv": {
+    "ByteIdentical": true,
+    "SHA256": "86a0d4f74be3cc1afada535e62d70d43da3b9a6fa0504f9fd6a174493f8b7456"
+  },
+  "all_Policies.csv": {
+    "ByteIdentical": true,
+    "SHA256": "cc14f03102370a1b1ffe206a45649924c0205dc3641cdafb4bc9a8f32f1142d6"
+  },
+  "all_Information_Criteria.csv": {
+    "ByteIdentical": true,
+    "SHA256": "b1b319edc4866de261bdd4a7bd10ff651def37d27666b3054811e3c40a90350b"
+  }
+}

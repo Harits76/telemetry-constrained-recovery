@@ -33,7 +33,7 @@ Restoration verifies SHA-256 hashes of the published integer tables. Replaying r
 
 The full-scale information checks independently group all capacity states for 1,152 conditional variances. Separate decimal integration checks 864 optimum witnesses. Per-case times are audit records with concurrent computation, not isolated latency benchmarks.
 
-[Open the CPU notebook in Google Colab](https://colab.research.google.com/github/Harits76/telemetry-constrained-recovery/blob/v1.0.0/notebooks/Recovery_Allocation.ipynb). The notebook is prepared for Colab; the reported study and reproduction checks ran in the documented Linux workspace. No live Colab execution is claimed.
+[Open the CPU notebook in Google Colab](https://colab.research.google.com/github/Harits76/telemetry-constrained-recovery/blob/v1.1.0/notebooks/Recovery_Allocation.ipynb). The notebook is prepared for Colab; the reported study and reproduction checks ran in the documented Linux workspace. No live Colab execution is claimed.
 
 ## Packet simulation
 
@@ -51,6 +51,21 @@ work/ns-3/build/scratch/ns3.48-telemetry-packets --input=work/packets/trials.txt
 The setup pins ns-3.48 and Padova LoRa module revisions. This stage requires a compatible C++23 toolchain; GCC 14.2 was tested. Native LoRa PHY propagation, interference, sensitivity, receive paths and gateway half duplex are used with an application query/reply scheduler and explicit duty accounting. Gapless rearmed single-receive operations model continuous listening. Join, ADR, security processing and full Class-C MAC behavior are outside this abstraction. There are no hardware measurements.
 
 Nominal batches are held fixed for the packet transport test. `Service_Optima.csv` separately adapts the batch to timing/duty under perfect reception; it is not an optimum over the physical MAC. Communication loss compares actual flow with perfect timely delivery of the same batch. Bootstrap intervals are conditional Monte Carlo intervals for the fixed scenarios. All profiles and losses are retained.
+
+## PureChain audit
+
+The allocation runner and packet analysis use the local PureChain audit by default. This is an adaptation of the original RARCA notebook’s hash-linked ledger. The collector logs completed decisions and results. The original canonical JSON structure and SHA-256 payload, block and previous-hash fields are retained. Ledger timestamps give replay order. Coverage counts verified experiment records against the declared experiment IDs and excludes the genesis record.
+
+```bash
+.venv/bin/python tests/test_purechain.py
+.venv/bin/python src/verify_audit.py --kind allocation --anchor protocol/PureChain_Checkpoints.json
+# After the packet simulation commands above regenerate the trial and packet files:
+.venv/bin/python src/verify_audit.py --kind packet --anchor protocol/PureChain_Checkpoints.json
+```
+
+Use a checkpoint obtained independently of the copy being checked. The adjacent checkpoints are convenient for local replay. The verifier also checks the input and code commitments and compares experiment payloads with the CSV records. For a fresh run on another toolchain, verify against that run’s checkpoint and compare the scientific output separately if floating-point or compression differences prevent byte equality. The ledger supplies record integrity relative to the checkpoint. Sensor authenticity and distributed consensus are outside the audit model.
+
+The released runs verified 7,776 policy records and 124,416 packet dispatches, with one separate genesis block in each chain. `--audit off` is available on both runners for the comparison. `results/purechain/` contains the chains, verification results, and paired on/off checks. Measured host recording times cover serialization, hashing, compression and buffered writes after evaluation. They do not enter the simulated radio deadline.
 
 ## Figures and manuscript
 

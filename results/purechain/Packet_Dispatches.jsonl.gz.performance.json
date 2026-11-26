@@ -1,0 +1,1 @@
+{"AppendMedianMs":0.027581,"AppendP95Ms":0.074601,"AppendSeconds":7.722169227,"ExperimentCount":124416,"FinalizeSeconds":0.032214797,"Scope":"Observed host encode/hash/compress/write cost; no fsync, device or consensus latency","StoredBytes":15022377}

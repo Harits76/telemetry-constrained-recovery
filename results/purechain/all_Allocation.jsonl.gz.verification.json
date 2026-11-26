@@ -1,0 +1,12 @@
+{
+  "Valid": true,
+  "ExperimentBlocks": 7776,
+  "GenesisBlocks": 1,
+  "ExpectedExperiments": 7776,
+  "VerifiedExperiments": 7776,
+  "AuditCoverage": 1.0,
+  "TailHash": "6d1d7468d503abb5b1256398d4f0f26c6761dfa4533e146d867d14720dd33b78",
+  "Errors": [],
+  "Trust": "Consistency against supplied checkpoint; producer/input authenticity and consensus unverified",
+  "CheckpointProvenance": "Caller-supplied anchor; trust depends on its provenance"
+}

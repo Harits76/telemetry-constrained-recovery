@@ -1,0 +1,22 @@
+{
+  "allocation": {
+    "ContextHash": "c6f70ab93a222932b025937920cc3803a180d8095cdbb021cf391da2b6da52fb",
+    "ExpectedIDsHash": "2a6a5db341804245c8f50ac5eb8f234ea9302b9daf524b7bb90b2fa6e9935546",
+    "ExperimentCount": 7776,
+    "GenesisHash": "c0e361d16b4bdd4fa9cb5700a0117a8f9ca093d9024ae4504e10d510bb769c01",
+    "LedgerFile": "all_Allocation.jsonl.gz",
+    "LedgerSHA256": "dac44dec08afdebb8a16621d30622a0915a89deafae59d5077a5451e875a5635",
+    "SchemaVersion": 1,
+    "TailHash": "6d1d7468d503abb5b1256398d4f0f26c6761dfa4533e146d867d14720dd33b78"
+  },
+  "packet": {
+    "ContextHash": "5e846b46194bd4975aea8974c0117f581d9c10d7931edb89155f1cbb3e5c4172",
+    "ExpectedIDsHash": "b88403429011eaaeafaefc633510a35e29438c27532f812acc514d5a09971c39",
+    "ExperimentCount": 124416,
+    "GenesisHash": "85212fa8ffb31f71a04ce64375bfcc1091b197d2b83fe615d32962055759f353",
+    "LedgerFile": "Packet_Dispatches.jsonl.gz",
+    "LedgerSHA256": "8f26fdf6db68e7d422c76c65670ea32346ebfce0964016c09fb65d538435ba74",
+    "SchemaVersion": 1,
+    "TailHash": "377342ccc2a7de33c1cc1b1a47cfc4053c9e08d9138b3772093a9259dec9f24b"
+  }
+}

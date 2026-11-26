@@ -1,0 +1,61 @@
+{
+  "Source": "Canonicalizer and verifier from user-provided original notebook, finite JSON reference values",
+  "OriginalNotebookSHA256": "bce334b8f1deda35207e0deb07aee79659d27a408eb44e1acd5b64d266070282",
+  "OriginalVerifierAccepted": true,
+  "Blocks": [
+    {
+      "BlockHash": "673fe9a8e01f7589f20f80aa0e6e44983e3d7819f0017b4068975b74f4ae7837",
+      "BlockIndex": 0,
+      "BlockType": "GENESIS",
+      "ExperimentID": "GENESIS",
+      "Payload": {
+        "Chain": "PureChain",
+        "Context": {
+          "Purpose": "format compatibility"
+        },
+        "ContextHash": "eb22967e233d1193170789dd75f969e31d732b0e642cbc5410ca758350c1ecee",
+        "ExpectedIDsHash": "ecb9a5fc9aef6f67febfa1bd495c8f1a39a382ca366bce0750b18dd12504adac",
+        "ExperimentCount": 2,
+        "HashAlgorithm": "SHA-256",
+        "Implementation": "Original-notebook-style local audit ledger",
+        "SchemaVersion": 1,
+        "Scope": "Collector-side audit; no signatures, consensus or sensor authentication",
+        "TimestampSemantics": "Logical replay ticks; not physical execution times"
+      },
+      "PayloadHash": "fe62d1fa8503c0c32b2a38ed09dcca4816b88bae45ffd7fda6d36d2194f96e2c",
+      "PreviousHash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "Timestamp": "2026-11-26T00:00:00.000000+00:00"
+    },
+    {
+      "BlockHash": "c4106d6c7fd93299761d95983d2f69bba11ff33fcbf956273afc79b38134d1cf",
+      "BlockIndex": 1,
+      "BlockType": "EXPERIMENT",
+      "ExperimentID": "reference/0",
+      "Payload": {
+        "ExperimentID": "reference/0",
+        "Label": "capacity-α",
+        "Metrics": {
+          "CertifiedFlow": 20.5
+        }
+      },
+      "PayloadHash": "05c01d141b8448d4395a7e5c20b75e28a4baee13a70096343fbe0c3e60f58360",
+      "PreviousHash": "673fe9a8e01f7589f20f80aa0e6e44983e3d7819f0017b4068975b74f4ae7837",
+      "Timestamp": "2026-11-26T00:00:00.000001+00:00"
+    },
+    {
+      "BlockHash": "df121a2fdefd0d61cc07ffad328519ae9fb0aa914b958b355c6ce68a8602d33f",
+      "BlockIndex": 2,
+      "BlockType": "EXPERIMENT",
+      "ExperimentID": "reference/1",
+      "Payload": {
+        "ExperimentID": "reference/1",
+        "Metrics": {
+          "CertifiedFlow": 31.0
+        }
+      },
+      "PayloadHash": "2f002554d1c36015e1dadb1ed7e661b533130e6522d7257dcb86e8c05341b028",
+      "PreviousHash": "c4106d6c7fd93299761d95983d2f69bba11ff33fcbf956273afc79b38134d1cf",
+      "Timestamp": "2026-11-26T00:00:00.000002+00:00"
+    }
+  ]
+}

@@ -9,14 +9,18 @@ F=ROOT/'paper/figures';F.mkdir(exist_ok=True,parents=True);R=ROOT/'results'
 plt.rcParams.update({'font.size':18,'font.weight':'bold','axes.labelweight':'bold','axes.titleweight':'bold','axes.titlesize':18,'axes.labelsize':18,'xtick.labelsize':18,'ytick.labelsize':18,'legend.fontsize':18,'pdf.fonttype':42,'savefig.bbox':'tight'})
 # Clear causal boundary; full canvas preserves space for18ptlabels.
 fig,ax=plt.subplots(figsize=(12.4,4.3));ax.set_position([0,0,1,1]);ax.set_xlim(0,12.4);ax.set_ylim(0,4.3);ax.axis('off')
-boxes=[(.1,2.1,2.7,1.6,'Capacity sensors\nEngineering bounds\nReport outcomes'),(3.3,2.1,2.6,1.6,'Radio / delivery\nNative costs\nDuty + deadline'),(6.4,2.1,2.6,1.6,'Received reports\nCertified bounds\nNo hidden state'),(9.5,2.1,2.7,1.6,'Recovery flow\nShared routes\nCapacity audit')]
+boxes=[(.1,2.1,2.7,1.6,'Capacity sensors\nEngineering bounds\nReport outcomes'),(3.3,2.1,2.6,1.6,'Radio / delivery\nNative costs\nDuty + deadline'),(6.4,2.1,2.6,1.6,'Received reports\nCertified bounds\nNo hidden state'),(9.5,2.1,2.7,1.6,'Recovery flow\nShared routes\nFlow certificate')]
 for x,y,w,h,text in boxes:ax.add_patch(FancyBboxPatch((x,y),w,h,boxstyle='round,pad=.08',facecolor='#EEF4F8',edgecolor='#172F53',lw=1.5));ax.text(x+w/2,y+h/2,text,ha='center',va='center',fontsize=18,weight='bold',linespacing=1.5)
 for x in [2.85,5.95,9.05]:ax.add_patch(FancyArrowPatch((x,2.9),(x+.38,2.9),arrowstyle='-|>',mutation_scale=15,lw=1.7,color='#172F53'))
 ax.add_patch(FancyBboxPatch((3.3,.15),5.7,1.15,boxstyle='round,pad=.08',facecolor='#FAF0D9',edgecolor='#8B681A',lw=1.5));ax.text(6.15,.72,'One-shot batch selection\nCut / singleton knapsack\nComplete offline reference',ha='center',va='center',fontsize=18,weight='bold')
 ax.text(1.45,.72,'Priors + bounds\nTraining metadata\nBudget + horizon',ha='center',va='center',fontsize=18,weight='bold')
 ax.add_patch(FancyArrowPatch((2.85,.72),(3.20,.72),arrowstyle='-|>',mutation_scale=15,lw=1.7,color='#172F53'))
 ax.add_patch(FancyArrowPatch((4.6,1.4),(4.6,2.02),arrowstyle='-|>',mutation_scale=15,lw=1.7,color='#172F53'))
-ax.text(10.7,.7,'Truth used for\nevaluation only',ha='center',va='center',fontsize=18,weight='bold',color='#9F3242');fig.savefig(F/'DecisionLoop.pdf');plt.close(fig)
+ax.add_patch(FancyBboxPatch((9.5,.15),2.7,1.15,boxstyle='round,pad=.08',facecolor='#F2F2F2',edgecolor='#59636D',lw=1.3))
+ax.text(10.85,.72,'PureChain audit\nDecision + flow log\nIntegrity checks',ha='center',va='center',fontsize=18,weight='bold')
+ax.add_patch(FancyArrowPatch((10.85,2.02),(10.85,1.42),arrowstyle='-|>',mutation_scale=15,lw=1.3,color='#59636D'))
+ax.add_patch(FancyArrowPatch((9.1,.72),(9.4,.72),arrowstyle='-|>',mutation_scale=13,lw=1.1,linestyle='--',color='#59636D'))
+ax.text(10.85,4.05,'Truth: evaluation only',ha='center',va='center',fontsize=18,weight='bold',color='#9F3242');fig.savefig(F/'DecisionLoop.pdf');plt.close(fig)
 # Small exact examples expose why a general submodular guarantee is unavailable.
 fig,axs=plt.subplots(1,2,figsize=(12.4,4.6))
 def node(ax,x,y,label):ax.add_patch(Circle((x,y),.18,facecolor='#EEF4F8',edgecolor='#172F53',lw=1.5));ax.text(x,y,label,ha='center',va='center',weight='bold',fontsize=18)
