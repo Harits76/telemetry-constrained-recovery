@@ -1,0 +1,8 @@
+{
+  "recorded_utc": "2026-11-26T01:51:05.312960+00:00",
+  "reason": "Before packet production, add a service-adapted exact reference so nominal-batch transport losses are distinguished from the change in best attainable service-feasible allocation. Development packet tests already inspected; no production packet outcomes inspected. This addition does not change9 selectors, production grid or retained outcomes.",
+  "design": "Six first original seeds, I05 capacity prior, perfect reception. Enumerate all batches<=6, adapt native+serial-service feasibility to B.28/.42/.70, H1/3/6, duty.01/.1. Optimistic serial-service reference only; not an optimal interference-aware MAC policy.",
+  "source_sha256": {
+    "src/service_reference.py": "ed115edd5b725362dd8a94ad606a571151f45a1e2ddce913a9bb050ae492639e"
+  }
+}

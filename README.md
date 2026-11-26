@@ -1,28 +1,69 @@
 # Telemetry Constrained Recovery Allocation
 
-Code, constructed case inputs, and reproducible experiments for **Telemetry-Constrained Recovery Allocation on Shared-Capacity Logistics Networks**. The controller chooses capacity reports before allocating flow through shared road capacities. The objective is expected feasible flow certified by the received reports.
+Code, data, and reproducible experiments for **Telemetry-Constrained Recovery Allocation on Shared-Capacity Logistics Networks**. The controller selects capacity reports before allocating flow through shared routes. It maximizes expected flow certified by timely reports.
 
-## Experiments
+## Main experiments
 
-The allocation study compares nine selection rules on 20 resources, including Flow-MSE and summary-statistic VoI controls. All admissible batches contain at most six reports. Integer flow and cut checks cover all 2^20 capacity states per case for the estimation objectives. The new test seeds and analysis rules are recorded in `protocol/Allocation_Design_Frozen.json`. Original cases were previously examined; the new test cohort uses the same graph families with new sampled scenarios.
+- Nine selection rules at 20 resources: cut ranking, random, static gain, greedy gain, exchange, singleton knapsack, cut knapsack, Flow-MSE and Summary-VoI.
+- Original and newly sampled 24-scenario cohorts, with three priors, two reception laws and budgets 0.42/0.70 s; 0.28 s is a predefined sensitivity.
+- All 50,331,648 full capacity states checked with integer primal/cut certificates. The allocation reference uses 60,460 short batches per graph.
+- 124,416 ns-3 packet dispatches across deadlines, duty fractions, background loads and simulated radii, plus a service-adapted exact reference.
 
-The ns-3 companion experiment uses the LoRa PHY model with a query/reply scheduler, explicit airtime, gateway half duplex, interference, duty spacing, and deadlines. Continuous listening uses gapless rearmed receive operations. This is a declared protocol abstraction, not a LoRaWAN MAC conformance test or hardware measurement. Production outcomes will be added after their checks complete.
+The allocation design was recorded before generating the new test scenarios. Original scenarios were previously examined. The new cohort reuses the same graph families and communication corpus; it is not a set of measured deployments. Read the frozen designs in `protocol/`.
 
-## Run the allocation comparison
+## Quick numerical replay
 
-Python 3.12 and a C++17 compiler are required.
+Python 3.12 and a C++17 compiler are required. The recorded environment uses NumPy 2.3.5, SciPy 1.17.0 and GCC 14.2.
 
 ```bash
 python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
 .venv/bin/python tests/test_information.py
+.venv/bin/python src/restore_tables.py
 .venv/bin/python src/run_study.py --workers 2
+.venv/bin/python src/structure.py
+.venv/bin/python src/supporting.py
+.venv/bin/python src/transport_replay.py
+.venv/bin/python src/communication_audit.py
+.venv/bin/python src/validate.py
+.venv/bin/python src/summarize.py
 ```
 
-Use `--cohort original` or `--cohort test` for a single cohort. The run rebuilds full integer flow tables in `work/` and writes CSVs and compact short-batch tables to `results/`. Checkpoints are saved after each case. Full binary truth tables are regenerated rather than committed.
+Restoration verifies SHA-256 hashes of the published integer tables. Replaying recomputes all selection objectives, optima and policy scores; it does not rebuild those restored flows. For a full integer-flow rebuild, omit restoration and start with no `work/*.bin` files. Use `--cohort original` or `--cohort test` for a single cohort. `src/supporting.py --rebuild-reduced` also rebuilds every terminal flow in the reduced eight-resource data.
 
-Flow-MSE minimizes uncertainty about full-state maximum flow. Summary-VoI minimizes uncertainty about mean monitored capacity, adapting the summary-statistic MMSE objective in Chiariotti et al., IEEE Networking Letters (2022), DOI [10.1109/LNET.2022.3172591](https://doi.org/10.1109/LNET.2022.3172591). The finite binary-belief implementation does not reproduce their Gaussian/Kalman algorithm.
+The full-scale information checks independently group all capacity states for 1,152 conditional variances. Separate decimal integration checks 864 optimum witnesses. Per-case times are audit records with concurrent computation, not isolated latency benchmarks.
+
+[Open the CPU notebook in Google Colab](https://colab.research.google.com/github/Harits76/telemetry-constrained-recovery/blob/v1.0.0/notebooks/Recovery_Allocation.ipynb). The notebook is prepared for Colab; the reported study and reproduction checks ran in the documented Linux workspace. No live Colab execution is claimed.
+
+## Packet simulation
+
+```bash
+.venv/bin/python -m pip install -r ns3/requirements-build.txt
+PATH="$PWD/.venv/bin:$PATH" .venv/bin/python ns3/setup.py --jobs 2
+.venv/bin/python tests/test_packets.py work/ns-3/build/scratch/ns3.48-telemetry-packets
+work/ns-3/build/utils/ns3.48-test-runner --suite=lorawan --verbose
+.venv/bin/python src/packet_experiment.py prepare
+work/ns-3/build/scratch/ns3.48-telemetry-packets --input=work/packets/trials.txt --output=work/packets/Packet_Outputs.csv
+.venv/bin/python src/packet_experiment.py analyze
+.venv/bin/python src/service_reference.py
+```
+
+The setup pins ns-3.48 and Padova LoRa module revisions. This stage requires a compatible C++23 toolchain; GCC 14.2 was tested. Native LoRa PHY propagation, interference, sensitivity, receive paths and gateway half duplex are used with an application query/reply scheduler and explicit duty accounting. Gapless rearmed single-receive operations model continuous listening. Join, ADR, security processing and full Class-C MAC behavior are outside this abstraction. There are no hardware measurements.
+
+Nominal batches are held fixed for the packet transport test. `Service_Optima.csv` separately adapts the batch to timing/duty under perfect reception; it is not an optimum over the physical MAC. Communication loss compares actual flow with perfect timely delivery of the same batch. Bootstrap intervals are conditional Monte Carlo intervals for the fixed scenarios. All profiles and losses are retained.
+
+## Figures and manuscript
+
+```bash
+.venv/bin/python -m pip install -r requirements-figures.txt
+.venv/bin/python src/plot_figures.py
+.venv/bin/python src/plot_packets.py
+```
+
+Figure sources use 18-point bold labels and vector PDF output. `paper/` contains the minimal HiTeX source: `main.tex`, `reference.bib`, and `figures/`. The four historical supporting analyses have explicit inputs and standalone replay scripts; private reviews and reading-copy PDFs are excluded.
+
+Flow-MSE targets full-state maximum flow. Summary-VoI targets mean monitored capacity, adapting the statistic-specific MMSE objective in Chiariotti et al., IEEE Networking Letters (2022), DOI [10.1109/LNET.2022.3172591](https://doi.org/10.1109/LNET.2022.3172591). This finite binary-belief control does not reproduce their Gaussian/Kalman algorithm.
 
 ## Data and licenses
 
-The graph inputs are historical research benchmarks and generated structures. The reception summaries derive from environmental LoRaWAN metadata, not a logistics deployment. Read [data terms](licenses/DATA_TERMS.md) before reuse. Own standalone code is MIT; `ns3/` is GPL-2.0-only; upstream data retain their original conditions. Private manuscript reviews and copyrighted reading copies are excluded.
+Historical research graphs and generated structures supply topology. Environmental LoRaWAN metadata supply derived communication summaries, not measured logistics capacities. Read [data terms](licenses/DATA_TERMS.md) and upstream README files. Own standalone code is MIT; `ns3/` is GPL-2.0-only; upstream data retain their original conditions. The code license excludes manuscript text and figures.

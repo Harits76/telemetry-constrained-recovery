@@ -6,3 +6,4 @@ work/
 *.bin
 ns-3/
 *.log
+build/

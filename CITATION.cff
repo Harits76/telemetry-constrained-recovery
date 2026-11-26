@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "Please cite this versioned research artifact when reusing the experiments."
+title: "Telemetry-Constrained Recovery Allocation on Shared-Capacity Logistics Networks"
+type: software
+version: 1.0.0
+date-released: 2026-11-26
+repository-code: "https://github.com/Harits76/telemetry-constrained-recovery"
+authors:
+  - family-names: Harits
+    given-names: Fadhil Muhammad
+  - family-names: Lee
+    given-names: Jae Min
+  - family-names: Kim
+    given-names: Dong-Seong

@@ -1,0 +1,9 @@
+{
+  "raw_parquet_sha256": "1904822ed9c282355e4666f6b2169745f61228357ba18bd035c96928be16734c",
+  "processed_trace_sha256": "ffc3a9ad9ccf334a9a4743331161f0bac3287a4931d99c7ce284fc2f9f72b022",
+  "derived_trace_sha256": "1e8e0f43b2d47a7515993cc9e19b38ee1c28b4b4b688f274b149c5940787bd77",
+  "source_dataset": "https://doi.org/10.18130/V3/RFTICK",
+  "split": "2024-10-01 UTC",
+  "source_terms": "Environmental LoRaWAN metadata, CC BY4.0; no logistics capacities or two-way request/reply traces.",
+  "preprocessing": "Existing block masks include inferred misses only for counter gaps up to64 and elapsed gaps<=3h; long outages censored. Nine sensors have train and test blocks. Diagnostic reuses previously examined held-out corpus, not a new external validation set."
+}

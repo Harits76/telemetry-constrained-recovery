@@ -20,6 +20,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-Scope: own standalone code in src/ and tests/. ns3/ is GPL-2.0-only.
+Scope: own standalone code in src/, tests/ and notebooks/. ns3/ is GPL-2.0-only.
 Third-party data are governed by licenses/DATA_TERMS.md and upstream terms,
 not by this MIT license. Manuscript text and figures are excluded.

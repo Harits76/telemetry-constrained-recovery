@@ -1,0 +1,74 @@
+{
+  "recorded_utc": "2026-11-26T01:43:21.883406+00:00",
+  "design": {
+    "model": "ns-3.48 + Padova LoRa PHY, application query/reply scheduler; gapless rearmed single receives model continuous listening. No join, ADR, security MIC or RX1, so not full LoRaWAN MAC or compliance validation.",
+    "source_commits": {
+      "ns3": "d2add90b452d600cfb4859baed8e9ea633519447",
+      "lorawan": "e45b4af428c92f30b2e6c201055809110758125f"
+    },
+    "cases": "First original seed6100 in all six families, fixed before packet outcomes; selection not based on simulation gains.",
+    "policies": "All9 policies at I05/INDEP80 on budgets.28/.42/.70. Batches frozen from allocation comparison; transport stress, no claim of reoptimized or globally optimal MAC scheduling.",
+    "grid": {
+      "horizon": [
+        1.0,
+        3.0,
+        6.0
+      ],
+      "duty": [
+        0.01,
+        0.1
+      ],
+      "background_nodes": [
+        0,
+        60
+      ],
+      "maximum_radius_m": [
+        2500,
+        3500
+      ],
+      "repeats": 32
+    },
+    "phy": {
+      "sf": 7,
+      "bw_hz": 125000,
+      "cr": "4/5",
+      "tx_dbm": 14,
+      "preamble_symbols": 8,
+      "explicit_header": true,
+      "downlink_hz": 869525000,
+      "uplink_hz": [
+        868100000,
+        868300000,
+        868500000
+      ],
+      "gateway_paths": 8,
+      "request_phy_bytes": 17,
+      "request_crc": false,
+      "reply_phy_bytes": [
+        20,
+        27
+      ],
+      "reply_crc": true
+    },
+    "geometry": "Fixed per family; radii250+(Rmax-250)*sqrt(U), anglesuniform; same per-device geometry at both background loads, scaled radii for range sensitivity. LogDistance exponent3.76, reference7.7dB at1m. No measured calibration, fading or shadowing.",
+    "timing": "One query per selected resource, ID order, downlink spacing hd/duty, reply timeout uses fixed configuredairtime, turn10ms, eachbackhaul25ms. Skip requeststartsafterH, ignore replies arrivingcontrollerafterH. Gateways physicallyhalfduplex in native PHY. No retry.",
+    "background": "60additional transmitters, each20PHYbytes SF7, ownfixedULchannel, period6s with independent uniforminitialphase; 0.943%airtime/device. Offeredload10packets/s. Geometry fixed withdeploystream; phases paired byfamily/trial acrosspoliciesandsettings.",
+    "truth": "Independent0.5capacities, samefamily/trialcapacitybits acrossallpolicies, budgets andcommunicationprofiles. Allocatoronlyuses timelyreceivedhighreports; simulatortruthneverpassedtopolicy.",
+    "outcomes": [
+      "received_reports",
+      "complete_batch_fraction",
+      "certified_flow",
+      "same_batch_perfect_timely_flow",
+      "communication_loss",
+      "late_replies",
+      "interference_events",
+      "half_duplex_events"
+    ],
+    "inference": "Descriptivepairedresults. 10000bootstrapdrawsofthe32trialindices, paired acrossallfixedgraphs/rules/budgets; CIconditionalonsixchosenconstructedcases, notindependentdeployments.",
+    "chronology": "DevelopmentusesdisjointtestIDsandseeds. No packetproductionoutcomesinspectedbeforethisfreeze. Retainallgridcellsandlosses."
+  },
+  "source_sha256": {
+    "ns3/telemetry-packets.cc": "b4efe07cd102daf219709c1b06e99144beca18bc51bbe5e4892824b854715032",
+    "src/packet_experiment.py": "7740f49ba7b837893a836fbe94462411427b8d5e0ec28afee44521f3a03194d0"
+  }
+}

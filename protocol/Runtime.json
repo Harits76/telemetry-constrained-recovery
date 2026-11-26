@@ -1,0 +1,9 @@
+{
+  "recorded_utc": "2026-11-26T01:49:32.410790+00:00",
+  "python": "3.12.14",
+  "compiler": "g++ (Debian 14.2.0-19) 14.2.0",
+  "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+  "cpu_quota": "200000 100000",
+  "memory_limit_bytes": 8589934592,
+  "note": "Measured allocation for this run only. Historical timing measurements are not attributed to this host. Builds and simulations may overlap, so percase walltimes are audit records rather than isolated performance benchmarks."
+}

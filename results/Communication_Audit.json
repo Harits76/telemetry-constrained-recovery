@@ -1,0 +1,13 @@
+{
+  "sensors": 9,
+  "blocks": 1263,
+  "opportunities": 646656,
+  "weighted_train_prr": 0.8893257466910225,
+  "weighted_test_prr": 0.8351983125494854,
+  "mean_sensor_abs_shift": 0.05512052881286184,
+  "minimum_shift": -0.10624298794578957,
+  "maximum_shift": -0.025036549707602274,
+  "service_rows": 27216,
+  "maximum_service_error": 3.552713678800501e-15,
+  "scope": "Transport diagnostic of previously used environmental traces; separate implementation check of the declared service contract. No measured logistics capacities or two-way exchange observations; metadata transport and computational consistency only."
+}

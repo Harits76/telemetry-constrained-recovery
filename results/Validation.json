@@ -1,0 +1,8 @@
+{
+  "cases": 48,
+  "fullstate_posterior_values": 1152,
+  "maximum_posterior_absolute_error": 3.9806764107197523e-07,
+  "independent_dinic_flow_values": 144,
+  "decimal_optimal_witnesses": 864,
+  "maximum_allocation_numerical_gap": 6.0822458181064576e-12
+}
